@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<p:panel header="Fitrar por:" toggleable="true" id="panelFiltro">
+	<h:panelGrid columns="8" cellpadding="10"  id="grid">
+		<h:outputLabel for="assunto" value="#{msgs['agenda.cadastro.label.assunto']}:" />
+		<p:inputText id="assunto" value="#{eventoController.eventoForm.agendaFiltro.tituloEvento}"/>
+	
+		<p:outputLabel for="dataInicio" value="#{msgs['agenda.cadastro.label.data.inicio']}" />
+	    <p:calendar id="dataInicio" value="#{eventoController.eventoForm.agendaFiltro.dataInicio}" timeZone="GMT-3" pattern="dd/MM/yyyy HH:mm:ss" 
+	    effect="fold" mask="true" locale="pt"/>
+	    
+	    <p:outputLabel for="dataFim" value="#{msgs['agenda.cadastro.label.data.fim']}:" />
+	    <p:calendar id="dataFim" value="#{eventoController.eventoForm.agendaFiltro.dataFim}" timeZone="GMT-3" pattern="dd/MM/yyyy HH:mm:ss" 
+	    effect="fold" mask="true" locale="pt"/>
+	    
+		<h:outputLabel for="pessoa"	value="#{msgs['menu.pessoa']}:" />
+		<p:selectOneMenu id="pessoa" value="#{eventoController.eventoForm.agendaFiltro.pessoa}" converter="converterGenerico" effect="fold">
+			<f:selectItem itemLabel="Selecione..." />
+			<f:selectItems value="#{eventoController.pessoas}" var="pessoa"	itemLabel="#{pessoa.nome}" itemValue="#{pessoa}" />
+		</p:selectOneMenu>
+		
+		<h:outputLabel for="recurso"	value="#{msgs['menu.recurso']}:" />
+		<p:selectOneMenu id="recurso" value="#{eventoController.eventoForm.agendaFiltro.recurso}" converter="converterGenerico" effect="fold">
+			<f:selectItem itemLabel="Selecione..." />
+			<f:selectItems value="#{eventoController.recursos}" var="recurso" itemLabel="#{recurso.descricao}" itemValue="#{recurso}" />
+		</p:selectOneMenu>
+		
+		<p:commandButton id="btnBuscar" value="#{msgs['botao.buscar']}" process="panelFiltro" update="@form" actionListener="#{eventoController.filtrarAgenda()}"/>
+		
+	</h:panelGrid>
+	</p:panel>
+</html>

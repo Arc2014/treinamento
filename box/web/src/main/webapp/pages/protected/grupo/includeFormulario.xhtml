@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+		<h:panelGrid columns="2" cellpadding="5" id="grid">
+		<h:outputLabel for="nome" value="Nome" />
+		<p:inputText id="nome" value="#{grupoController.grupoForm.grupo.nome}" 
+			required="true" requiredMessage="#{msgs['grupo.cadastro.nome.required']}" minlegth="10" disabled="#{disabled}">
+			<f:validator validatorId="GrupoValidator" binding="#{grupoValidator}" />
+			<f:attribute name="idGrupo" value="#{grupoController.grupoForm.grupo.id}"/>
+		</p:inputText>
+		<h:outputLabel for="descricao" value="Descricão" />
+		<p:inputTextarea rows="5" cols="30" autoResize="true" id="descricao" value="#{grupoController.grupoForm.grupo.descricao}" disabled="#{disabled}">
+		</p:inputTextarea>
+		</h:panelGrid> 
+		
+</html>

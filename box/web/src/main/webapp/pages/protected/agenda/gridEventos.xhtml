@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+	<p:panel header="Consultar Eventos">
+		<p:dataTable id="listaEventos" var="evento" value="#{eventoController.agendas}"  paginator="true" rows="10" 
+		 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+		    
+		    <p:column headerText="#{msgs['menu.recurso']}" styleClass="centralizar">
+		        <h:outputText value="#{evento.recurso.descricao}" />
+		    </p:column>
+		 
+		    <p:column headerText="#{msgs['tabela.Nome']}" styleClass="centralizar">
+		        <h:outputText value="#{evento.pessoa.nome}" />
+		    </p:column>
+		 
+		    <p:column headerText="#{msgs['tabela.data.notificacao']}" styleClass="centralizar">
+		    	<h:outputText value="#{evento.dataNotificacao}">
+		    		<f:convertDateTime type="date"  dateStyle="short" pattern="dd/MM/yyyy HH:mm"/>
+		    	</h:outputText>
+		    </p:column>
+		    
+		    <p:column headerText="#{msgs['agenda.cadastro.label.assunto']}" styleClass="centralizar">				        
+				<p:outputLabel value="#{evento.tituloEvento}"></p:outputLabel>
+	        </p:column> 
+		    
+		    <p:column headerText="#{msgs['agenda.cadastro.label.data.inicio']}" styleClass="centralizar">				        
+				<h:outputText value="#{evento.dataInicio}">
+					<f:convertDateTime type="date"  dateStyle="short" pattern="dd/MM/yyyy HH:mm"/>
+				</h:outputText>
+	        </p:column> 
+	       			       
+		    <p:column headerText="#{msgs['agenda.cadastro.label.data.fim']}" styleClass="centralizar">				        
+				<h:outputText value="#{evento.dataFim}">
+					<f:convertDateTime type="date"  dateStyle="short" pattern="dd/MM/yyyy HH:mm"/>
+				</h:outputText>   
+			</p:column>   
+		</p:dataTable>
+		<h:commandLink>
+            <p:graphicImage name="/img/excel.png" width="24"/>
+            <p:dataExporter type="xls" target="listaEventos" fileName="Relatorio_de_Eventos" />
+        </h:commandLink>
+
+        <h:commandLink>
+            <p:graphicImage name="/img/pdf.png" width="24"/>
+            <p:dataExporter type="pdf" target="listaEventos" fileName="Relatorio_de_Eventos"/>
+        </h:commandLink>
+
+        <h:commandLink>
+            <p:graphicImage name="/img/csv.png" width="24"/>
+            <p:dataExporter type="csv" target="listaEventos" fileName="Relatorio_de_Eventos" />
+        </h:commandLink>
+
+        <h:commandLink>
+            <p:graphicImage name="/img/xml.png" width="24"/>
+            <p:dataExporter type="xml" target="listaEventos" fileName="Relatorio_de_Eventos" />
+        </h:commandLink>
+	</p:panel>
+</html>

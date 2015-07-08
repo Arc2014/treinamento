@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<p:growl id="messages" autoUpdate="true"></p:growl>	
+				<p:panel header="#{msgs['recurso.cadastro.titulo']}">
+				
+				<ui:include src="/pages/protected/recurso/includeFormulario.xhtml" />
+												
+				<p:commandButton value="#{msgs['cadastro.botao.salvar']}" process="idFormTemplate" ajax="false" action="#{recursoController.gravar()}"/>
+				<p:commandButton value="#{msgs['cadastro.botao.voltar']}" action="/pages/protected/recurso/consultar.jsf+?faces-redirect=true" immediate="true"/>
+				</p:panel>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

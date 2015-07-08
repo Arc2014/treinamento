@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:panelGrid columns="2" cellpadding="5" id="grid">
+		<h:outputLabel for="nome" value="#{msgs['tipo.cadastro.label.nome']}:" />
+		<p:inputText id="nome" value="#{tipoController.tipoForm.tipo.nome}" 
+			required="true" requiredMessage="#{msgs['tipo.cadastro.nome.required']}"
+			disabled="#{disabled}">
+			<f:validator validatorId="tipoValidator" binding="#{tipoValidator}" />
+		 	<f:attribute name="idTipo" value="#{tipoController.tipoForm.tipo.id}"/>
+		</p:inputText>
+        <h:outputLabel for="cor" value="#{msgs['tipo.cadastro.label.cor']}:" />
+		<p:selectOneMenu id="cor" value="#{tipoController.tipoForm.tipo.cor}" 
+			required="true" requiredMessage="#{msgs['tipo.cadastro.cor.required']}" > 
+			<f:selectItem itemLabel="Selecione..." noSelectionOption="true"/>
+            <f:selectItems value="#{tipoController.cores}" />
+        </p:selectOneMenu>
+		<script>
+			$(document).ready(function(){
+				$('ul.ui-selectonemenu-items li:not(ul.ui-selectonemenu-items li:first-child)').each(function(){
+					$(this).addClass($(this).text()).css('height', '15px').text('');
+				});
+			});
+       </script>
+	</h:panelGrid>
+</html>

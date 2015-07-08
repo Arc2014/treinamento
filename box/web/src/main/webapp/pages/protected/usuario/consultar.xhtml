@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+			<p:growl id="messages" autoUpdate="true"></p:growl>	
+				<p:panel header="Consultar Usuário">
+				<h:panelGrid  columns="3" cellpadding="5">
+				<p:outputLabel value="#{msgs['tabela.login']}" style="color:#EE9A00;"/>
+        		<p:autoComplete id="filtro" value="#{usuarioController.usuarioForm.filtro}" completeMethod="#{usuarioController.completarTexto}" />
+				
+				<p:commandButton value="#{msgs['botao.buscar']}" actionListener="#{usuarioController.buscarPorFiltro()}" update="listaUsuario" />
+				</h:panelGrid>				
+				<p:dataTable id="listaUsuario" var="usuario" value="#{usuarioController.usuarios}"  paginator="true" rows="10" 
+				 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+				    
+				    <f:facet name="{Exporters}">
+			            <h:commandLink>
+			                <p:graphicImage name="/img/excel.png" width="24"/>
+			                <p:dataExporter type="xls" target="listaUsuario" fileName="Relatorio_de_logins" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <p:graphicImage name="/img/pdf.png" width="24"/>
+			                <p:dataExporter type="pdf" target="listaUsuario" fileName="Relatorio_de_logins"/>
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <p:graphicImage name="/img/csv.png" width="24"/>
+			                <p:dataExporter type="csv" target="listaUsuario" fileName="Relatorio_de_logins" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <p:graphicImage name="/img/xml.png" width="24"/>
+			                <p:dataExporter type="xml" target="listaUsuario" fileName="Relatorio_de_logins" />
+			            </h:commandLink>
+			        </f:facet>
+				    
+				    <p:column headerText="#{msgs['tabela.login']}">
+				        <h:outputText value="#{usuario.login}" />
+				    </p:column>
+				 
+				    <p:column headerText="#{msgs['tabela.Nome']}">
+				        <h:outputText value="#{usuario.pessoa.nome}" />
+				    </p:column>
+				 
+				    <p:column headerText="#{msgs['tabela.Habilitado']}" styleClass="centralizar">
+				    	<p:outputLabel value="#{usuario.habilitadoFormatado}"></p:outputLabel>
+				    </p:column>
+				    
+				    <p:column headerText="#{msgs['tabela.Acoes']}" styleClass="centralizar">				        
+
+			            <p:commandLink rendered="#{loginController.usuario.admin}" actionListener="#{usuarioController.deletar(usuario)}" update="listaUsuario">
+			            	<p:graphicImage name="/img/delete.png" width="25"/>    
+				      	 	<p:confirm header="Confirmation" message="Deseja realmente deletar?" icon="ui-icon-alert" />
+				      	</p:commandLink>				      	
+
+				      	<p:commandLink rendered="#{loginController.usuario.admin}" action="/pages/protected/usuario/editar.jsf" style="margin-left:30px">
+
+				      		 <p:graphicImage name="/img/edit.png" width="25"/> 
+				      		 <f:param name="idUsuario" value="#{usuario.id}" />
+				      	</p:commandLink>							
+
+				      	<p:commandLink action="/pages/protected/usuario/visualizar.jsf" style="margin-left:30px">
+				      		<p:graphicImage name="/img/find.png" width="25"/>
+				      		<f:param name="idUsuario" value="#{usuario.id}" />
+				      	</p:commandLink>
+			        </p:column> 
+			       			       
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" width="400px">
+			            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"   ajax="true"/>
+			            <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			       </p:confirmDialog>
+				<br/>		
+				<p:commandButton rendered="#{loginController.usuario.admin}" value="#{msgs['botao.cadastrar']}" action="/pages/protected/usuario/cadastro.jsf+?faces-redirect=true" immediate="true"/>				
+				</p:panel>
+				<br/>
+				
+    
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

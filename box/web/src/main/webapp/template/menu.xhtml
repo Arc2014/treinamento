@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<p:menubar style="margin-top:5px">
+		<p:menuitem value="#{msgs['menu.paginaInicial']}" icon="ui-icon-home" url="/pages/protected/index.jsf" />
+		<p:submenu label="Pessoa" icon="ui-icon-person">
+			<p:menuitem title="#{msgs['pessoa.listar.adicionar.pessoa']}" value="#{msgs['pessoa.listar.adicionar.pessoa']}" url="/pages/protected/pessoa/adicionar.jsf" />
+			<p:menuitem title="#{msgs['pessoa.listar']}" value="#{msgs['pessoa.listar']}" url="/pages/protected/pessoa/listarPessoa.jsf" />
+		</p:submenu>
+		<p:submenu label="#{msgs['menu.usuario']}" icon="ui-icon-person">
+			<p:menuitem title="#{msgs['menu.consultar']}" value="#{msgs['menu.consultar']}" url="/pages/protected/usuario/consultar.jsf" />
+		</p:submenu>
+		<p:submenu label="#{msgs['menu.grupo']}" icon="ui-icon-tag" >
+	        <p:menuitem title="#{msgs['menu.consultar']}" value="#{msgs['menu.consultar']}" url="/pages/protected/grupo/consultar.jsf" />
+		 </p:submenu>
+		<p:submenu label="#{msgs['menu.tipo.recurso']}" icon="ui-icon-tag">
+			<p:menuitem title="#{msgs['menu.consultar']}" value="#{msgs['menu.consultar']}" url="/pages/protected/tipo/consultar.jsf" />
+		</p:submenu>
+		<p:submenu label="#{msgs['menu.recurso']}" icon="ui-icon-tag">
+			<p:menuitem title="#{msgs['menu.consultar']}" value="#{msgs['menu.consultar']}" url="/pages/protected/recurso/consultar.jsf" />
+		</p:submenu>
+		<p:submenu label="#{msgs['menu.agenda']}" icon="ui-icon-note">
+			<p:menuitem title="#{msgs['menu.consultar']}" value="#{msgs['menu.consultar']}" url="/pages/protected/agenda/agendaEvento.jsf" />
+		</p:submenu>
+		<f:facet name="options">
+			<p:outputLabel id="idbemvindo" value="Bem Vindo  #{loginController.usuario.login.toUpperCase()}" style="margin-right:30px;"></p:outputLabel>
+			<p:commandButton value="Logout" icon="ui-icon-extlink" ajax="false" immediate="true" action="#{loginController.sair()}" />
+		</f:facet>
+		
+	</p:menubar>
+</h:body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+		<link type="text/css" href="../../../resources/css/schedule.css" rel="stylesheet"></link>
+
+		      	
+                <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+   					 <p:printer target="agenda" />
+				</p:commandButton>
+                <p:panel header="Agenda" style="margin-top:20px;" id="painelAgenda">
+                <p:schedule  id="agenda" value="#{eventoController.eventos}" widgetVar="agenda" locale="pt" timeZone="GMT-3" >
+	 
+		            <p:ajax event="dateSelect" listener="#{eventoController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();PF('agenda').update();"/>
+		            <p:ajax event="eventSelect" listener="#{eventoController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();PF('agenda').update();" />
+		            <p:ajax event="eventMove" listener="#{eventoController.onEventMove}"  oncomplete="PF('agenda').update();"/>
+		            <p:ajax event="eventResize" listener="#{eventoController.onEventResize}"  oncomplete="PF('agenda').update();"/>
+	        	</p:schedule>
+		
+		<p:dialog id="eventDialog" style="font-size: 14px!important;"  width="300" closeOnEscape="true" widgetVar="eventDialog" header="Evento"   resizable="false" modal="true" showEffect="clip" hideEffect="clip">		    
+			<p:outputPanel id="eventDetailsPanel">        
+		        <h:panelGrid id="eventDetails" columns="2" cellpadding="10">
+		        
+		        	<h:outputLabel for="pessoaEventoAdmin" value="Solicitante:" /> 
+					<p:selectOneMenu rendered="#{loginController.usuario.admin}" id="pessoaEventoAdmin" required="true" requiredMessage="O Campo Solicitante é obrigatório!" value="#{eventoController.event.data.pessoa}" effect="fold" converter="converterGenerico" style="width: 128px!important;">
+	                   	<f:selectItem  itemValue="#{loginController.usuario.pessoa}" itemLabel="#{loginController.usuario.pessoa.nome}"/>
+	                   	<f:selectItems value="#{eventoController.pessoas}" var="pes" itemLabel="#{pes.nome}" />
+	                </p:selectOneMenu>
+	                		        
+					<p:selectOneMenu rendered="#{!loginController.usuario.admin}" id="pessoaEvento" required="true" requiredMessage="O Campo Solicitante é obrigatório!" value="#{eventoController.event.data.pessoa}" effect="fold" converter="converterGenerico" style="width: 128px!important;">
+	                   	<f:selectItem  itemValue="#{loginController.usuario.pessoa}" itemLabel="#{loginController.usuario.pessoa.nome}"/>
+	                </p:selectOneMenu>		        
+		        
+					<h:outputLabel for="assuntoEvento" value="Assunto:" />
+		            <p:inputText id="assuntoEvento" maxlength="60" required="true" requiredMessage="O campo Assunto é obrigatório" value="#{eventoController.event.data.tituloEvento}" />
+		            
+					<h:outputLabel for="descricaoEvento" value="Descrição:" /> 
+					<p:inputText id="descricaoEvento" maxlength="60" required="true" requiredMessage="O campo Descrição é obrigatório" value="#{eventoController.event.data.descricaoEvento}" />  
+		
+					<h:outputLabel for="inicioEvento" value="Início:" />
+					<p:calendar id="inicioEvento" required="true" requiredMessage="O campo Início é obrigatório" mindate="#{eventoController.event.data.dataInicio}" value="#{eventoController.event.data.dataInicio}" 
+					 pattern="dd/MM/yyy H:mm" locale="pt"/>
+					
+					<h:outputLabel for="fimEvento" value="Fim:" />					
+					<p:calendar id="fimEvento" required="true" requiredMessage="O campo Fim é obrigatório" mindate="#{eventoController.event.data.dataInicio}" value="#{eventoController.event.data.dataFim}" 
+					pattern="dd/MM/yyyy HH:mm" locale="pt"/>
+					
+					<h:outputLabel for="recursoEvento" value="Recursos:" /> 
+	                <p:selectOneMenu id="recursoEvento" required="true" requiredMessage="O campo Recurso Evento e obrigatório" value="#{eventoController.event.data.recurso}" effect="fold" converter="converterGenerico" style="width: 128px!important;">
+						<f:selectItem itemLabel="Selecione..."/>	                   	
+	                   	<f:selectItems value="#{eventoController.recursos}" var="rec" itemLabel="#{rec.descricao}"/>
+					</p:selectOneMenu>
+					
+					<h:outputLabel for="notificacao"	value="#{msgs['agenda.cadastro.notificar.antes']}:" />
+					<p:selectOneMenu id="notificacao"  value="#{eventoController.eventoForm.notificacaoMinutos}" effect="fold" style="width: 128px!important;">
+						<f:selectItem itemLabel="Selecione..." />
+						<f:selectItem itemLabel="15 min" itemValue="15" />
+						<f:selectItem itemLabel="30 min" itemValue="30"/>
+						<f:selectItem itemLabel="1 h" itemValue="60"/>
+						<f:selectItem itemLabel="2 h" itemValue="120"/>
+						<f:selectItem itemLabel="4 h" itemValue="240"/>
+						<f:selectItem itemLabel="12 h" itemValue="720"/>
+						<f:selectItem itemLabel="24 h" itemValue="1440"/>			
+						<f:selectItem itemLabel="48 h" itemValue="2880" />			
+						<f:selectItem itemLabel="1 semana" itemValue="10080"/>
+					</p:selectOneMenu>
+					
+					<h:outputLabel for="diaTodo" value="Dia Todo:" />
+		            <h:selectBooleanCheckbox id="diaTodo" value="#{eventoController.event.data.diaTodo}" />
+			       
+	          		<p:commandButton value="Salvar" process="eventDialog" update="agenda mensagens" ajax="true" actionListener="#{eventoController.gravar}"   oncomplete="if (!args.validationFailed) PF('eventDialog').hide();"/>
+	          		<p:commandButton value="Apagar" rendered="#{eventoController.event.data.id != null}" update="agenda" actionListener="#{eventoController.apagar}"  oncomplete="PF('eventDialog').hide();" />
+			        </h:panelGrid>
+
+	        </p:outputPanel>
+	    </p:dialog>  
+		
+		</p:panel>
+
+	 <script type="text/javascript">
+                PrimeFaces.locales['pt'] = {  
+                    closeText: 'Fechar',  
+                    prevText: 'Anterior',  
+                    nextText: 'Próximo',  
+                    currentText: 'Começo',  
+                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],  
+                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],  
+                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],  
+                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],  
+                    dayNamesMin: ['D','S','T','Q','Q','S','S'],  
+                    weekHeader: 'Semana',  
+                    firstDay: 1,  
+                    isRTL: false,  
+                    showMonthAfterYear: false,  
+                    yearSuffix: '',  
+                    timeOnlyTitle: 'Só Horas',  
+                    timeText: 'Tempo',  
+                    hourText: 'Hora',  
+                    minuteText: 'Minuto',  
+                    secondText: 'Segundo',  
+                    currentText: 'Data Atual',  
+                    ampm: false,  
+                    month: 'Mês',  
+                    week: 'Semana',  
+                    day: 'Dia',  
+                    allDayText : 'Todo Dia'  
+                };  
+        </script>
+	
+		
+</h:body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+			<p:growl id="messages" autoUpdate="true"></p:growl>	
+				<p:panel header="#{msgs['recurso.consultar.titulo']}">
+				<h:panelGrid  columns="5" cellpadding="5">
+				
+				<p:outputLabel value="Patrimocio" />
+        		<p:autoComplete id="filtro" value="#{recursoController.recursoForm.recurso.numeroPatrimonio}"/>
+        		
+        		<p:outputLabel value="Ativo" />
+        		<p:selectBooleanCheckbox id="excluido" value="#{recursoController.recursoForm.recurso.ativo}"/>
+        		
+		
+				<p:commandButton value="#{msgs['botao.buscar']}" actionListener="#{recursoController.filtrarRecursos()}" update="listaRecurso" />
+				
+				
+				</h:panelGrid>	
+				
+				<p:dataTable id="listaRecurso" var="recurso" value="#{recursoController.recursos}"  paginator="true" rows="10" 
+				 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+				    
+				    <f:facet name="{Exporters}">
+			            <h:commandLink>
+			                <p:graphicImage name="/img/excel.png" width="24"/>
+			                <p:dataExporter type="xls" target="listaRecurso" fileName="Relatorio_de_recursos" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <p:graphicImage name="/img/pdf.png" width="24"/>
+			                <p:dataExporter type="pdf" target="listaRecurso" fileName="Relatorio_de_recursos"/>
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <p:graphicImage name="/img/csv.png" width="24"/>
+			                <p:dataExporter type="csv" target="listaRecurso" fileName="Relatorio_de_recursos" />
+			            </h:commandLink>
+			 
+			            <h:commandLink>
+			                <p:graphicImage name="/img/xml.png" width="24"/>
+			                <p:dataExporter type="xml" target="listaRecurso" fileName="Relatorio_de_recursos" />
+			            </h:commandLink>
+			        </f:facet>
+				    <p:column headerText="#{msgs['label.descricao']}">
+				        <h:outputText value="#{recurso.descricao}" />
+				    </p:column>
+				    <p:column headerText="#{msgs['label.patrimonio']}">
+				        <h:outputText value="#{recurso.numeroPatrimonio}" />
+				    </p:column>
+				    <p:column headerText="#{msgs['menu.tipo.recurso']}">
+				        <h:outputText value="#{recurso.tipoRecurso.nome}" />
+				    </p:column>
+				    <p:column headerText="Ativo">
+				        <h:outputText value="#{recurso.statusAtivo}" />
+				    </p:column>
+				    
+				    <p:column headerText="#{msgs['tabela.Acoes']}" styleClass="centralizar">				        
+
+			            <p:commandLink rendered="#{loginController.usuario.admin}" actionListener="#{recursoController.deletar(recurso)}" update="listaRecurso">
+			            	<p:graphicImage name="/img/delete.png" width="25"/>    
+				      	 	<p:confirm header="#{msgs['modal.header.deletar']}" message="#{msgs['modal.confirmacao.deletar']}" icon="ui-icon-alert" />
+				      	</p:commandLink>				      	
+
+				      	<p:commandLink rendered="#{loginController.usuario.admin}" action="/pages/protected/recurso/editar.jsf" style="margin-left:30px">
+				      		 <p:graphicImage name="/img/edit.png" width="25"/>
+				      		 <f:param name="idRecurso" value="#{recurso.id}" />
+				      	</p:commandLink>							
+
+				      	<p:commandLink action="/pages/protected/recurso/visualizar.jsf" style="margin-left:30px">
+				      		<p:graphicImage name="/img/find.png" width="25"/>
+				      		<f:param name="idRecurso" value="#{recurso.id}" />
+				      	</p:commandLink>
+			        </p:column> 
+				   
+			       			       
+				</p:dataTable>			
+				<p:confirmDialog global="true" showEffect="fade" width="400px">
+			            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"   ajax="true"/>
+			            <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			       </p:confirmDialog>
+				<br/>	
+				<p:commandButton rendered="#{loginController.usuario.admin}" value="#{msgs['botao.cadastrar']}" action="/pages/protected/recurso/cadastro.jsf+?faces-redirect=true" immediate="true"/>		
+				</p:panel>
+				<br/>
+    
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

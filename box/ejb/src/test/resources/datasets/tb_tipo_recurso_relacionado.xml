@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<dataset>
+	<TB_TIPO_RECURSO ID="1" NOME="TV" COR="AZUL" />
+	<TB_TIPO_RECURSO ID="2" NOME="Data Show" COR="VERDE" />
+	<TB_RECURSO ID="1" ATIVO="1" DESCRICAO="TV Sony" DESCRICAO_IMAGEM="TV Sony.jpg" NUM_PATRIMONIO="123456789GFD" TIPO="1"/>
+</dataset>
+

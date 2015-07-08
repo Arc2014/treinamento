@@ -1,0 +1,84 @@
+<html id="ajaxEcho" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:body>
+	<ui:composition template="/template/template.xhtml">
+	
+		<h1 class="ui-widget" ><h:outputText value="#{msg['titulo.gestaoProfissional']}" /></h1>
+
+		<ui:define name="content">
+			<p:growl />
+			<p:dataTable id="listaPessoas" var="pessoa" value="#{pessoaController.pessoas}"
+				rows="10" paginator="true" 
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords}  
+                                                           - Página: {currentPage}/{totalPages} ]" 
+				rowsPerPageTemplate="5,10,15">
+				
+				<f:facet name="header">
+			       <h:outputText value="#{msg['pessoa.listar.pessoasCadastradas']}" />
+			 
+			        <p:commandButton id="toggler" type="button" value="#{msg['titulo.colunas']}" style="float:right" icon="ui-icon-calculator" />
+			        <p:columnToggler datasource="listaPessoas" trigger="toggler" />
+			    </f:facet>
+				
+				<p:column headerText="#{msg['pessoa.nome']}" sortBy="#{pessoa.nome}">
+					<h:outputText value="#{pessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="#{msg['pessoa.listar.idade']}" sortBy="#{pessoa.idade}" width="200">
+					<h:outputText value="#{pessoa.idade}" />
+				</p:column>
+
+				<p:column headerText="#{msg['pessoa.listar.acao']}" width="72" exportable="false">
+					<p:commandLink action="#{pessoaController.excluir(pessoa)}" update="listaPessoas">
+						<p:graphicImage name="/img/delete.png" width="24" height="24"/>
+						<p:confirm header="Confirmação" message="Deseja realmente deletar?" icon="ui-icon-alert" />
+					</p:commandLink>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+						<p:commandButton value="Sim" type="button"	styleClass="ui-confirmdialog-yes" icon="ui-icon-check"	ajax="true" />
+						<p:commandButton value="Nao" type="button"	styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+					<p:commandLink action="/paginas/pessoa/alterar">
+				   		<p:graphicImage name="/img/edit.png" width="24" height="24"/>
+				   		<f:param name="idPessoa" value="#{pessoa.id}"/>
+					</p:commandLink>
+					
+					<p:commandLink action="/paginas/pessoa/detalhar">
+						<p:graphicImage name="/img/find.png" width="24" height="24"/>
+				   		<f:param name="idPessoa" value="#{pessoa.id}"/>
+					</p:commandLink>
+				</p:column>
+
+			</p:dataTable>
+			<br/>
+			<div align="right">
+			 <!-- p:commandButton id="adicionar" value="#{msg['pessoa.listar.alterar.pessoa']}" action="/paginas/pessoa/adicionar" ajax="false" icon="ui-icon-plus"/-->
+			</div>
+			
+	<h3 class="ui-widget"><h:outputText value="#{msg['titulo.exportarDados']}" /></h3>
+    <h:commandLink>
+        <p:graphicImage name="/img/excel.png" />
+        <p:dataExporter type="xls" target="listaPessoas" fileName="pessoas" pageOnly="true"/>
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/img/pdf.png" />
+        <p:dataExporter type="pdf" target="listaPessoas" fileName="pessoas" pageOnly="true" />
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/img/csv.png" />
+        <p:dataExporter type="csv" target="listaPessoas" fileName="pessoas" pageOnly="true" />
+    </h:commandLink>
+ 
+    <h:commandLink>
+        <p:graphicImage name="/img/xml.png" />
+        <p:dataExporter type="xml" target="listaPessoas" fileName="pessoas" pageOnly="true" />
+    </h:commandLink>
+	</ui:define>
+	</ui:composition>
+	</h:body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Cadastrar Evento</title>
+	<link rel="stylesheet" href="resoruces/css/bootstrap.min.css">
+	<link rel="stylesheet" href="resoruces/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="resoruces/css/jquery-ui.css">
+	<link rel="stylesheet" href="resoruces/css/jquery-ui.structure.min.css">
+	<link rel="stylesheet" href="resoruces/css/jquery-ui.theme.min.css">
+	<link rel="stylesheet" type="text/css" href="resoruces/css/jquery.datetimepicker.css">
+	
+	<script src="resoruces/js/jquery-1.10.2.js"></script>
+	<script src="resoruces/js/jquery-ui.js"></script>
+	<script src="resoruces/js/moment.min.js"></script>
+	<script src="resoruces/js/jquery.datetimepicker.js"></script>
+	<script src="resoruces/js/scripts-ajax.js"></script>
+	<script>
+	 	$(function() {
+		    $( "#dataInicio" ).datetimepicker({
+		    	  format:'d.m.Y H:i',
+		    	  inline:true,
+		    	  lang:'pt'
+		    	});
+
+		    $( "#dataFim" ).datetimepicker({
+		    	  format:'d.m.Y H:i',
+		    	  inline:true,
+		    	  lang:'pt'
+		    	});
+		});
+	</script>
+</head>
+<body onload="carregarTelaALterar()">
+
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Consultar <span class="sr-only"></span></a></li>
+        <li class="active"><a href="#">Cadastro <span class="sr-only">(current)</span></a></li>                
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container container-fluid">
+	<form id="formularioCadastro" onsubmit="salvarEvento()" method="POST">			
+			<div class="form-group">
+				<label for="solicitante">Solicitante:</label> 
+				<select id="solicitante" size="1" name="D1" class="form-control">
+					<option selected value="Selecione">Selecione...</option>
+					<option value="1">Aurelio</option>
+					<option value="2">Adriano</option>
+					<option value="3">Fred</option>
+					<option value="4">Renato</option>
+					<option value="5">Pablo</option>
+				</select>
+			</div>
+			<div class="form-group">
+			    <label for="recurso">Recurso:</label> 
+			    <select id="recurso" size="1" name="D2" class="form-control">
+			     <option selected value="Selecione">Selecione...</option>
+			     <option value="1">pirulito</option>
+			     <option value="2">sofa</option>
+			     <option value="4">Cadeira do Renato</option>
+			     <option value="5">hp</option>
+			     <option value="6">tesC</option>
+			    </select>
+			</div>
+			<div class="form-group">
+				<label for="tituloEvento">Assunto:</label> 
+				<input type="text" class="form-control" id="tituloEvento">
+			</div>
+			<div class="form-group">
+				<label for="descricaoEvento">Descrição:</label> 
+				<input type="text" class="form-control" id="descricaoEvento">
+			</div>
+				<div class="form-group col-md-6">
+					<label for="dataInicio" style="vertical-align: top;" >Início:</label> 
+					<input id="dataInicio" type="text" class="form-control"  name="datepicker"  placeholder="dataInicio">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="dataFim" style="vertical-align: top;" >Fim:</label> 
+					<input id="dataFim" type="text" class="form-control"  name="datepicker" placeholder="dataFim">
+				</div>
+			<input type="submit" value="Cadastrar" class="btn btn-default">		
+		</form>
+</div>
+</body>
+</html>

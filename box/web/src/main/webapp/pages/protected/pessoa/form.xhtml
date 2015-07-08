@@ -1,0 +1,88 @@
+<f:view id="ajaxEcho" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head />
+	<h:body>
+		<br />
+			<p:accordionPanel multiple="true">
+        		<p:tab title="Dados Pessoais">
+				<p:growl />
+ 					<h:panelGrid columns="2" cellpadding="5" id="grid">
+					<p:outputLabel value="#{msgs['pessoa.nome']}: " />
+					<p:inputText value="#{pessoaController.pessoa.nome}" required="true" label="nome" readonly="${readonly}" requiredMessage="O campo nome é Obrigatório."/>
+					
+					<p:outputLabel for="date" value="#{msgs['pessoa.dataNascimento']}: " title="dataNascimento" />	        			
+        			<p:calendar id="date" value="#{pessoaController.pessoa.dataNascimento}"  rendered="${!readonly}" pattern="dd/MM/yyyy" mask="true" >
+        				<f:validator validatorId="dataNascimentoValidator"/>
+        			</p:calendar>
+ 					<p:inputMask value="#{pessoaController.pessoa.dataNascimento}" mask="99/99/9999" readonly="${readonly}" rendered="${readonly}">
+ 						<f:convertDateTime pattern="dd/MM/yyyy" />
+ 					</p:inputMask>
+ 					
+ 					<p:outputLabel for="cpf" value="#{msgs['pessoa.cpf']}:" /> 
+       				<p:inputMask id="cpf" value="#{pessoaController.pessoa.cpf}" mask="999.999.999-99" readonly="${readonly}" >
+						<f:attribute name="idPessoa" value="#{pessoaController.pessoa.id}"/>
+       				</p:inputMask>
+       				
+					<p:outputLabel value="#{msgs['pessoa.rg']}: " />
+					<p:inputText value="#{pessoaController.pessoa.rg}" label="rg" readonly="${readonly}"/>
+		 
+					<p:outputLabel for="sexo" value="#{msgs['pessoa.sexo']}: " />
+			        <p:selectOneRadio id="sexo" value="#{pessoaController.pessoa.sexo}"  readonly="${readonly}"  >
+			            <f:selectItems var="sex" value="#{pessoaController.sexos}" itemLabel="#{pessoaController.getMensagem(sex.label)}"/> 			        
+			        </p:selectOneRadio>
+ 					
+					<p:outputLabel for="estadoCivil" value="#{msgs['pessoa.estadoCivil']}: " />
+			        <p:selectOneMenu id	="estadoCivil" value="#{pessoaController.pessoa.estadoCivil}" readonly="${readonly}" >
+			        	 <f:selectItems var="estadoCivil" value="#{pessoaController.estadoCivil}" itemLabel="#{pessoaController.getMensagem(estadoCivil.label)}"/> 
+			        </p:selectOneMenu>
+ 					
+				
+					<p:outputLabel value="#{msgs['pessoa.nacionalidade']}: " />
+					<p:inputText value="#{pessoaController.pessoa.nacionalidade}" label="nacionalidade" readonly="${readonly}"/>
+ 												
+					<p:outputLabel value="#{msgs['pessoa.naturalidade']}: " />
+					<p:inputText value="#{pessoaController.pessoa.naturalidade}" label="naturalidade" readonly="${readonly}"/>
+					<br/>
+					
+				</h:panelGrid>
+			
+				<p:fileUpload  id="uploadArquivo" value="#{pessoaController.file}" rendered="${!readonly}" mode="simple" skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >
+					<f:validator validatorId="extensaoValidator"/>
+				</p:fileUpload>
+				
+				<h:panelGroup id="downloadFoto" rendered="#{pessoaController.verificaImagem(readonly)}" >
+				<h:outputText value="#{msgs['usuario.donwload.foto']}: " />
+				<p:commandLink style="Margin-top: 10px;" title="Download da Foto" ajax="false" immediate="true">
+					<p:graphicImage value="/img/download.png" />
+					<p:fileDownload	value="#{pessoaController.imagemPessoa}"  />
+				</p:commandLink>  
+				</h:panelGroup>	
+				 				
+				</p:tab>
+
+				<p:tab title="Endereço">
+						<ui:include src="../pessoa/endereco.xhtml" />
+				</p:tab>
+ <!-- 
+				<p:tab title="Contatos">
+					<ui:include src="contatos.xhtml" />
+				</p:tab>
+				<p:tab id="experienciasProfissionaisInclude" title="#{msg['experiencia.exeperienciasProfissionais']}">
+
+					<ui:include src="../pessoa/experienciaProfissional.xhtml" />
+
+				</p:tab>
+
+				<p:tab id="formacaoAcademicaInclude" title="#{msg['pessoa.formacaoAcademica']}">
+					<ui:include src="formacaoAcademica.xhtml" />
+
+				</p:tab>
+ -->
+				</p:accordionPanel>
+
+
+	</h:body>
+</f:view>

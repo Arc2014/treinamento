@@ -1,0 +1,19 @@
+<f:view id="ajaxEcho" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head />
+	<title><h:outputText value="#{msg['pessoa.detalhar']}" /> </title>
+	<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+		<p:outputLabel  value="#{msg['pessoa.detalhar']}"/>
+		<h:form id="formAdcionar">
+			<ui:include src="/paginas/pessoa/form.xhtml"/>
+			<p:commandButton id="Voltar" value="#{msg['botao.voltar']}" action="/paginas/pessoa/listarPessoa.xhtml" ajax="false" icon="ui-icon-arrowreturn-1-w"/>
+		</h:form>
+		</ui:define>
+		</ui:composition>
+	</h:body>
+</f:view>

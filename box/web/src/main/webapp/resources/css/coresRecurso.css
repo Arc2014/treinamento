@@ -1,0 +1,29 @@
+.vermelho{
+	background-color: #FF6347;
+}
+
+.verde{
+	background-color: #00aa00;
+}
+
+.azul{
+	background-color: #6262ff;
+}
+
+.preto{
+	background-color: black ;
+}
+
+.branco{
+	background-color: white ;
+	color: black;
+}
+
+.amarelo{
+	background-color: #ffe759;
+	color: black;
+}
+
+.roxo{
+	background-color: #c401d3;
+}

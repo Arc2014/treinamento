@@ -1,0 +1,65 @@
+.ui-widget, .ui-widget .ui-widget, .jumbotron {
+ font-size: 90% !important;
+}
+
+.navbar-top{	
+	min-height: 0 !important;	
+}
+
+.centro{
+	margin-bottom: 10px !important;
+	margin-top: 80px !important;	
+	
+}
+
+.caixaLogin{
+	width: 250px;
+	margin:20% auto 0;
+}
+
+.conteudo-footer{
+	
+	padding-top: 10px;
+	padding-bottom: 10px;	
+}
+
+.centralizar{
+	margin: auto;
+	text-align: center;
+}	
+
+.ui-growl{
+	margin-top: 105px !important;
+}
+
+.imagem{
+	border-radius:90px;	
+}
+
+.color-picker{
+	height: 30px;
+	width: 30px;
+	border: solid 1px #000;
+	border-radius: 5px;
+}
+
+.fc-event{
+	font-size: 8pt !important;
+}   
+            
+.ui-selectonemenu .ui-selectonemenu-trigger{
+	width: 25px !important;
+	}
+	
+.navbar-static-top, .navbar-fixed-top, .navbar-fixed-bottom {
+	width: 100% !important;
+	margin-bottom: 0px !important;
+}
+
+.legenda{
+	height: 15px;
+	width: 15px;
+	border: solid 1px #000;
+	border-radius: 5px;
+}
+       

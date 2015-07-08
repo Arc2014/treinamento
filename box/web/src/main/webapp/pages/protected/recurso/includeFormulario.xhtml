@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:panelGroup layout="block" style="width: 50%; float:left;">
+	<h:panelGrid columns="2" cellpadding="5" id="grid">
+	
+		<h:outputLabel for="patrimonio" value="#{msgs['label.patrimonio']}" />
+		<p:inputText id="patrimonio" value="#{recursoController.recursoForm.recurso.numeroPatrimonio}"
+			required="true" requiredMessage="#{msgs['recurso.cadastro.patrimonio.required']}"
+			disabled="#{disabled}">
+			<f:validator validatorId="recursoValidator" binding="#{recursoValidator}" />
+		 	<f:attribute name="idRecurso" value="#{recursoController.recursoForm.recurso.id}"/>		
+		</p:inputText>
+		
+		<h:outputLabel for="descricao" value="#{msgs['label.descricao']}" />
+		<p:inputTextarea rows="6" cols="33" id="descricao" value="#{recursoController.recursoForm.recurso.descricao}"
+			required="true" requiredMessage="#{msgs['recurso.cadastro.descricao.required']}"
+			disabled="#{disabled}">		
+		</p:inputTextarea>
+		
+		<h:outputLabel for="tipo" value="#{msgs['menu.tipo.recurso']}" />
+		<p:selectOneMenu id="tipo" value="#{recursoController.recursoForm.recurso.tipoRecurso}" converter="converterGenerico"
+	       	var="t" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="#{msgs['usuario.cadastro.pessoa.required']}"
+	       	panelStyle="width:180px" effect="fade" style="width:160px" disabled="#{disabled}">
+	       	<f:selectItem  itemLabel="#{msgs['placeholder.selecione']}"/>
+			<f:selectItems value="#{recursoController.tipos}" var="tipo" itemLabel="#{tipo.nome}" itemValue="#{tipo}" />
+			<p:column>
+	               <h:outputText value="#{t.nome}" />
+	           </p:column>
+	       </p:selectOneMenu>
+	       
+	       	<h:outputLabel for="ativo" value="Ativo" rendered="#{rendered}"/>
+	       		<p:selectBooleanCheckbox id="ativo" value="#{recursoController.recursoForm.recurso.ativo}"			
+				disabled="#{disabled}" rendered="#{rendered}" />
+			
+			<h:outputLabel for="imagem" value="#{msgs['recurso.descricao.imagem.do.recurso']}" rendered="#{recursoController.recursoForm.recurso.id == null}"/>
+		 	<p:fileUpload id="imagem" label="#{msgs['cadastro.recurso.buscar.imagem']}" fileUploadListener="#{recursoController.associarImagemRecurso}"  value="#{recursoController.file}" cancelLabel="#{msgs['cadastro.recurso.cancelar']}"
+		 		sizeLimit="5243000" fileLimit="1" dragDropSupport="false" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" previewWidth="200" mode="advanced" invalidFileMessage="#{msgs['cadastro.recurso.formato.invalido']}" 
+		 		invalidSizeMessage="#{msgs['cadastro.recurso.limite.tamanho.arquivo']}" fileLimitMessage="#{msgs['cadastro.recurso.somente.um.permitido']}" uploadLabel="#{msgs['cadastro.recurso.enviar.imagem']}" rendered="#{recursoController.recursoForm.recurso.id == null}"/>	
+	
+	</h:panelGrid>
+</h:panelGroup>
+<h:panelGroup layout="block" style="width: 50%; float:left;">
+	<p:graphicImage width="210px" height="200px" value="#{recursoController.imagemArquivo}"  rendered="#{recursoController.imagemArquivo != null}" />
+</h:panelGroup>
+
+
+</html>

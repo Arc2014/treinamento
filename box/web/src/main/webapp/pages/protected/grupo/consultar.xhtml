@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:body>
+	<ui:composition template="/template/template.xhtml">
+			<ui:define name="content">		
+				<f:view>
+					<p:growl id="messages" autoUpdate="true"></p:growl>	
+					<p:panel header="Consulta de Grupo">
+						<p:dataTable id="listaGrupo" var="grupo" value="#{grupoController.grupos}">
+						   						 
+						    <p:column headerText="Nome">
+						        <h:outputText value="#{grupo.nome}" />
+						    </p:column>
+						 
+						    <p:column headerText="Descrição">
+						        <h:outputText value="#{grupo.descricao}" />
+						    </p:column>
+						    <p:column headerText="#{msgs['tabela.Acoes']}" styleClass="centralizar">
+						    	<p:commandLink rendered="#{loginController.usuario.admin}" actionListener="#{grupoController.deletar(grupo)}" update="listaGrupo">
+							      	<p:graphicImage name="/img/delete.png" width="25"/>
+							      	<p:confirm header="Confirmation" message="Deseja realmente deletar?" icon="ui-icon-alert" />
+								</p:commandLink>
+								<p:commandLink rendered="#{loginController.usuario.admin}" action="/pages/protected/grupo/editar.jsf" style="margin-left:30px">
+						      		 	<p:graphicImage name="/img/edit.png" width="25"/> 
+						      			<f:param name="idGrupo" value="#{grupo.id}" />	 
+						      	</p:commandLink>
+						      	<p:commandLink action="/pages/protected/grupo/visualizar.jsf" style="margin-left:30px">
+						      		<p:graphicImage name="/img/find.png" width="25"/>
+						      		<f:param name="idGrupo" value="#{grupo.id}" />
+						      	</p:commandLink>
+						   	</p:column>
+						</p:dataTable>	
+						<br/>
+						<p:commandButton rendered="#{loginController.usuario.admin}" value="#{msgs['botao.cadastrar']}" action="/pages/protected/grupo/cadastro.jsf+?faces-redirect=true" immediate="true"/>
+						<p:confirmDialog global="true" showEffect="fade" width="400px">
+				            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"   ajax="true"/>
+				            <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			      		 </p:confirmDialog>
+					</p:panel>
+				</f:view>		
+			</ui:define>
+		</ui:composition>				
+	</h:body>
+</html>

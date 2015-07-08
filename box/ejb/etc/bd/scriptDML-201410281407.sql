@@ -1,0 +1,5 @@
+insert into tb_pessoa(id, nome, cpf, data_nasc, email) values (1, 'Aurelio Rezende', '12312312313', '2014-01-01', 'arcosta@stefanini.com');insert into tb_pessoa(id, nome, cpf, data_nasc, email) values (1, 'Aurelio Rezende', '12312312313', '2014-01-01', 'arcosta@stefanini.com');insert into tb_pessoa(id, nome, cpf, data_nasc, email) values (1, 'Aurelio Rezende', '12312312313', '2014-01-01', 'arcosta@stefanini.com');
+insert into tb_pessoa(id, nome, cpf, data_nasc, email) values (2, 'Adriano Bueno', '23423423434', '2014-01-01', 'arbueno@stefanini.com');
+insert into tb_pessoa(id, nome, cpf, data_nasc, email) values (3, 'Frederico Bull', '34534534545', '2014-01-01', 'fbull@stefanini.com');
+insert into tb_pessoa(id, nome, cpf, data_nasc, email) values (4, 'Renato Gomes', '45645645656', '2014-01-01', 'regsilva@stefanini.com');
+insert into tb_pessoa(id, nome, cpf, data_nasc, email) values (5, 'Pablo Rezende', '56756756767', '2014-01-01', 'prsilva@stefanini.com');

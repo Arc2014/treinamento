@@ -1,0 +1,13 @@
+<HTML>
+    <HEAD>
+      <TITLE>Pet Store Sale!</TITLE>
+    </HEAD>
+    <BODY>
+      <CENTER>
+    		Ola Sr(a). $agenda.getPessoa().getNome()
+
+    		O(A) $agenda.getRecurso().getTipo().getNome() $agenda.getRecurso().getDescricao() foi reservado para a data $agenda.getDataInicioFormatada() as $agenda.getHoraInicioFormatada() até $agenda.getDataFimFormatada() as $agenda.getHoraFimFormatada() .
+
+      </CENTER>
+    </BODY>
+ </HTML>

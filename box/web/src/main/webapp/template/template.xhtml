@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Teste</title>
+</h:head>
+<h:body>
+	<link type="text/css"
+		href="#{request.contextPath}/resources/css/style.css" rel="stylesheet"></link>
+	<link type="text/css"
+		href="#{request.contextPath}/resources/css/coresRecurso.css" rel="stylesheet"></link>
+	<link type="text/css"
+		href="#{request.contextPath}/resources/css/bootstrap.min.css"
+		rel="stylesheet"></link>
+	<link type="text/css"
+		href="#{request.contextPath}/resources/css/bootstrap-theme.min.css"
+		rel="stylesheet"></link>
+	<!-- script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.min.js"></script-->
+	<script type="text/javascript"
+		src="#{request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<h:form id="idFormTemplate" prependId="false" enctype="multipart/form-data">
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div id="header">
+						<h:graphicImage value="#{request.contextPath}/resources/img/logo-stefanini.png" />
+						<ui:insert name="header">
+							<ui:include src="header.xhtml" />
+						</ui:insert>
+					</div>
+					<div id="content" class="centro">
+						<ui:insert name="content">
+						</ui:insert>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
+		</div>
+	</h:form>
+</h:body>
+</html>

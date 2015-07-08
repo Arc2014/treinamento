@@ -1,0 +1,4 @@
+<dataset>
+	<TB_TIPO_RECURSO ID="1" NOME="TV" COR="AZUL" />
+	<TB_TIPO_RECURSO ID="2" NOME="Notebook" COR="VERDE" />
+</dataset>

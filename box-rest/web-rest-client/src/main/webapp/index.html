@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Teste WebertService</title>
+  <link rel="stylesheet" href="resoruces/css/bootstrap.min.css">
+  <link rel="stylesheet" href="resoruces/css/bootstrap-theme.min.css">
+  <script src="resoruces/js/jquery-1.10.2.js"></script>
+  <script src="resoruces/js/jquery-ui.js"></script>
+  <script src="resoruces/js/moment.min.js"></script>
+  <script src="resoruces/js/scripts-ajax.js"></script>
+</head>
+<body onload="carregarEventos()">
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Consultar <span class="sr-only">(current)</span></a></li>
+        <li><a href="cadastrar.html">Cadastro <span class="sr-only"></span></a></li>                
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container container-fluid">
+	<form role="form">
+		
+		<div class="jumbotron">
+		  <h3>Filtro de eventos</h3>
+		
+
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Evento</label>
+    <input type="number" class="form-control" id="eventoConsultar">
+  </div>
+  
+ 
+  <a class="btn btn-default" onclick="getEventoPorId()">Buscar</a>
+
+   
+		  
+		</div>
+	
+	
+		<table id="eventos" class="table table-striped">		
+		<tr>
+			<th>Titulo </th>
+			<th>Descrição</th>
+			<th>Data de Inicio</th>
+			<th>Data de Fim</th>
+			<th>Recurso Alocado</th>
+			<th>Responsável</th>			
+			<th>Apagar</th>
+			<th>Alterar</th>
+		</tr>			
+		</table>
+	</form>
+</div>
+</body>
+</html>

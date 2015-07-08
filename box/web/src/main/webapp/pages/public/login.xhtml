@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/templateLogin.xhtml">
+		<ui:define name="content">
+			<f:view>
+			<h:form id="idForm" prependId="false">
+				<p:growl id="messages" autoUpdate="true"></p:growl>	
+				<p:panel id="panelLogin" header="Login" styleClass="caixaLogin">
+				<h:panelGrid columns="2" cellpadding="5" id="grid">
+					<h:outputLabel for="username" value="#{msgs['usuario.cadastro.label.login']}:" />
+					<p:inputText id="username" value="#{loginController.usuario.login}" 
+						required="true" requiredMessage="#{msgs['usuario.cadastro.login.required']}">
+					</p:inputText>
+					
+					<h:outputLabel for="password" value="#{msgs['usuario.cadastro.label.senha']}:" />
+					<p:password id="password" value="#{loginController.usuario.senha}" dback="true" required="true" />
+					
+				</h:panelGrid>
+				
+				
+				<p:commandButton value="#{msgs['login.botao.entrar']}" type="submit" action="#{loginController.acessarSistema()}" ajax="false" />
+				</p:panel>
+			</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

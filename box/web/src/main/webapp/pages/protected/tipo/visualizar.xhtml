@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<p:growl id="messages"  autoUpdate="true"></p:growl>	
+				<p:panel header="Visualizar Usuário">
+				
+				<ui:include src="/pages/protected/tipo/includeFormulario.xhtml" >
+					<ui:param name="disabled" value="true" />
+				</ui:include>				
+				<div class="color-picker" style="background-color: ##{tipoController.tipoForm.tipo.cor}; margin-left:200px; margin-top:-30px;"></div>
+				
+				<p:commandButton value="#{msgs['cadastro.botao.voltar']}" action="/pages/protected/tipo/consultar.jsf" immediate="true"/>				
+				</p:panel>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event type="preRenderView"
+		listener="#{usuarioController.preparaFormulario()}" />
+</f:metadata>
+
+<h:panelGrid columns="2" cellpadding="5" id="grid">
+	<h:outputLabel for="login"
+		value="#{msgs['usuario.cadastro.label.login']}:" />
+	<p:inputText id="login"
+		value="#{usuarioController.usuarioForm.usuario.login}" required="true"
+		requiredMessage="#{msgs['usuario.cadastro.login.required']}"
+		disabled="#{disabled}">
+		<f:validator validatorId="loginValidator" binding="#{loginValidator}" />
+		<f:attribute name="idUsuario"
+			value="#{usuarioController.usuarioForm.usuario.id}" />
+	</p:inputText>
+
+	<h:outputLabel for="senha"
+		value="#{msgs['usuario.cadastro.label.senha']}:" />
+	<p:password id="senha"
+		value="#{usuarioController.usuarioForm.usuario.senha}" dback="true"
+		feedback="true" required="true"
+		requiredMessage="#{msgs['usuario.cadastro.senha.required']}"
+		match="confirmaSenha"
+		validatorMessage="#{msgs['usuario.cadastro.erro.senhasnaoconferem']}"
+		disabled="#{disabled}" />
+
+	<h:outputLabel for="confirmaSenha"
+		value="#{msgs['usuario.cadastro.label.confirmarSenha']}:" />
+	<p:password id="confirmaSenha"
+		value="#{usuarioController.usuarioForm.confirmaSenha}" dback="true"
+		disabled="#{disabled}" />
+
+	<h:outputLabel for="pessoa"
+		value="#{msgs['usuario.cadastro.label.pessoa']}:" />
+	<p:selectOneMenu id="pessoa"
+		value="#{usuarioController.usuarioForm.usuario.pessoa}"
+		converter="converterGenerico" var="p" filter="true"
+		filterMatchMode="startsWith" required="true"
+		requiredMessage="#{msgs['usuario.cadastro.pessoa.required']}"
+		panelStyle="width:180px" effect="fade" style="width:160px"
+		disabled="#{disabled}">
+		<f:selectItem itemLabel="Selecione..." />
+		<f:selectItems value="#{usuarioController.pessoas}" var="pessoa"
+			itemLabel="#{pessoa.nome}" itemValue="#{pessoa}" />
+		<p:column>
+			<h:outputText value="#{p.nome}" />
+		</p:column>
+	</p:selectOneMenu>
+
+	<h:outputLabel for="habilitado"
+		value="#{msgs['usuario.cadastro.label.habilitado']}: " />
+	<h:selectBooleanCheckbox id="habilitado"
+		value="#{usuarioController.usuarioForm.usuario.habilitado}"
+		disabled="#{disabled}" />
+
+	<h:outputLabel for="picklistGrupos"
+		value="#{msgs['usuario.cadastro.label.grupos']}: " />
+	<p:pickList id="picklistGrupos"
+		value="#{usuarioController.usuarioForm.grupoModel}" var="grupo"
+		converter="GrupoConverter" itemValue="#{grupo}"
+		itemLabel="#{grupo.nome}" disabled="#{disabled}">
+		<f:facet name="sourceCaption">#{msgs['usuario.cadastro.label.grupos.disponiveis']}</f:facet>
+		<f:facet name="targetCaption">#{msgs['usuario.cadastro.label.grupos.associados']}</f:facet>
+	</p:pickList>
+</h:panelGrid>
+
+</html>

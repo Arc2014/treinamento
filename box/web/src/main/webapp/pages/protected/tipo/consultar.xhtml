@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="content">
+			<p:growl id="messages" autoUpdate="true"></p:growl>	
+				<p:panel header="Consultar Tipos de Recursos">
+				<h:panelGrid  columns="3" cellpadding="5">
+				<p:outputLabel value="#{msgs['menu.tipo.recurso']}" style="color:#EE9A00;"/>
+				
+				</h:panelGrid>				
+				<p:dataTable id="listaTipos" var="tipo" value="#{tipoController.tipos}"  paginator="true" rows="10" 
+				 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+				    
+				    
+				    <p:column headerText="#{msgs['tabela.Nome']}" styleClass="centralizar">
+				        <h:outputText value="#{tipo.nome}" />
+				    </p:column>
+				 
+	 			    <p:column headerText="#{msgs['tabela.cor.evento']}" styleClass="centralizar">
+				        <div class="color-picker centralizar #{tipo.cor.nome}"></div>
+				    </p:column> 
+				 
+				    
+				    <p:column headerText="#{msgs['tabela.Acoes']}" styleClass="centralizar">				        
+			            <p:commandLink rendered="#{loginController.usuario.admin}" actionListener="#{tipoController.deletar(tipo)}" update="listaTipos">
+			            	<p:graphicImage name="/img/delete.png" width="25"/>    
+				      	 	<p:confirm header="Confirmation" message="Deseja realmente deletar?" icon="ui-icon-alert" />
+				      	</p:commandLink>				      	
+				      	<p:commandLink rendered="#{loginController.usuario.admin}" action="/pages/protected/tipo/editar.jsf" style="margin-left:30px">
+				      		 <p:graphicImage name="/img/edit.png" width="25"/> 
+				      		 <f:param name="idTipo" value="#{tipo.id}" />
+				      	</p:commandLink>							
+				      	<p:commandLink action="/pages/protected/tipo/visualizar.jsf" style="margin-left:30px">
+				      		<p:graphicImage name="/img/find.png" width="25"/>
+				      		<f:param name="idTipo" value="#{tipo.id}" />
+				      	</p:commandLink>
+			        </p:column> 
+			       			       
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" width="400px">
+			            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"   ajax="true"/>
+			            <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			       </p:confirmDialog>
+				<br/>				
+				<p:commandButton rendered="#{loginController.usuario.admin}" value="#{msgs['botao.cadastrar']}" action="/pages/protected/tipo/cadastro.jsf+?faces-redirect=true" immediate="true"/>				
+				</p:panel>
+				<br/>
+				
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>
